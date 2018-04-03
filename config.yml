@@ -1,0 +1,7 @@
+logging:
+  level: INFO
+  loggers:
+    org.gangel.dropwizard-playground: DEBUG
+
+serviceName: dropwizard-playground
+
