@@ -1,9 +1,12 @@
 package org.gangel.dropwizard.playground;
 
 import io.dropwizard.Application;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
+import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.gangel.dropwizard.playground.health.TemplateHealthCheck;
+import org.gangel.dropwizard.playground.resources.CpuInfoResource;
 import org.gangel.dropwizard.playground.resources.HelloWorldResource;
 
 public class PlaygroundApplication extends Application<PlaygroundConfiguration> {
@@ -19,7 +22,11 @@ public class PlaygroundApplication extends Application<PlaygroundConfiguration> 
 
     @Override
     public void initialize(final Bootstrap<PlaygroundConfiguration> bootstrap) {
-        // TODO: application initialization
+        // variable substitution with environment variables
+        bootstrap.setConfigurationSourceProvider(new SubstitutingSourceProvider(
+            bootstrap.getConfigurationSourceProvider(), new EnvironmentVariableSubstitutor(false)
+        ));
+
     }
 
     @Override
@@ -27,7 +34,7 @@ public class PlaygroundApplication extends Application<PlaygroundConfiguration> 
                     final Environment environment) {
         environment.healthChecks().register("health", new TemplateHealthCheck());
         environment.jersey().register(new HelloWorldResource());
-
+        environment.jersey().register(new CpuInfoResource(configuration.getProcessorsCount()));
     }
 
 

@@ -9,6 +9,8 @@ public class PlaygroundConfiguration extends Configuration {
     @NotEmpty
     private String serviceName;
 
+    private Integer processorsCount;
+
     @JsonProperty
     public String getServiceName() {
         return this.serviceName;
@@ -17,6 +19,11 @@ public class PlaygroundConfiguration extends Configuration {
     @JsonProperty
     public void setServiceName(final String serviceName) {
         this.serviceName = serviceName;
+    }
+
+    @JsonProperty
+    public Integer getProcessorsCount() {
+        return this.processorsCount;
     }
 
 }

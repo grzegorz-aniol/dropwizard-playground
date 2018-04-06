@@ -1,7 +1,12 @@
 logging:
-  level: INFO
+  level: ERROR
   loggers:
     org.gangel.dropwizard-playground: DEBUG
 
+server:
+  requestLog:
+    type: console
+
 serviceName: dropwizard-playground
 
+processorsCount: ${NUMBER_OF_PROCESSORS:-1}
